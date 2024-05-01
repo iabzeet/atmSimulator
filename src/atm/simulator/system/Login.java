@@ -4,11 +4,16 @@ import java.awt.ActiveEvent;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 public class Login extends JFrame implements ActionListener{
+	
+	JButton login, signUp, clear;
+	JTextField cardTextField;
+	JPasswordField pinTextField;
 	
 	Login() {
 		setTitle("AUTOMATED TELLER MACHINE");
@@ -32,8 +37,9 @@ public class Login extends JFrame implements ActionListener{
 		cardNo.setBounds(120, 150, 150, 30);
 		add(cardNo);
 		
-		JTextField cardTextField = new JTextField();
+		cardTextField = new JTextField();
 		cardTextField.setBounds(300, 150, 230, 30);
+		cardTextField.setFont(new Font("Arial", Font.BOLD, 14));
 		add(cardTextField);
 		
 		JLabel pin = new JLabel("PIN:");
@@ -41,26 +47,30 @@ public class Login extends JFrame implements ActionListener{
 		pin.setBounds(120, 220, 250, 30);
 		add(pin);
 		
-		JTextField pinTextField = new JTextField();
+		pinTextField = new JPasswordField();
 		pinTextField.setBounds(300, 220, 230, 30);
+		pinTextField.setFont(new Font("Arial", Font.BOLD, 14));
 		add(pinTextField);
 		
-		JButton login = new JButton("SIGN IN");
+		login = new JButton("SIGN IN");
 		login.setBounds(300, 300, 100, 30);
 		login.setBackground(Color.BLACK);
 		login.setForeground(Color.WHITE);
+		login.addActionListener(this);
 		add(login);
 		
-		JButton clear = new JButton("CLEAR");
+		clear = new JButton("CLEAR");
 		clear.setBounds(430, 300, 100, 30);
 		clear.setBackground(Color.BLACK);
 		clear.setForeground(Color.WHITE);
+		clear.addActionListener(this);
 		add(clear);
 		
-		JButton signUp = new JButton("SIGN UP");
+		signUp = new JButton("SIGN UP");
 		signUp.setBounds(300, 350, 230, 30);
 		signUp.setBackground(Color.BLACK);
 		signUp.setForeground(Color.WHITE);
+		signUp.addActionListener(this);
 		add(signUp);
 		
 		getContentPane().setBackground(Color.WHITE);
@@ -70,8 +80,18 @@ public class Login extends JFrame implements ActionListener{
 		setLocation(350, 250);
 	}
 	
-	public void actionPerformed(ActiveEvent ae) {
-		
+	//ActionEvent--tells which component's action has been performed
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+		if (ae.getSource() == clear) {
+			cardTextField.setText("");
+			pinTextField.setText("");
+		} else if (ae.getSource() == login) {
+			
+		} else if (ae.getSource() == signUp) {
+			setVisible(false);
+			new SignupOne().setVisible(true);
+		}
 	}
 
 	public static void main(String[] args) {
