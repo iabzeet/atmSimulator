@@ -1,19 +1,25 @@
 package atm.simulator.system;
 
 import java.awt.ActiveEvent;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 
 import javax.swing.*;
+
+import com.mysql.cj.protocol.Resultset;
+import java.sql.*;
 
 public class Login extends JFrame implements ActionListener{
 	
 	JButton login, signUp, clear;
 	JTextField cardTextField;
 	JPasswordField pinTextField;
+	
 	
 	Login() {
 		setTitle("AUTOMATED TELLER MACHINE");
@@ -87,7 +93,22 @@ public class Login extends JFrame implements ActionListener{
 			cardTextField.setText("");
 			pinTextField.setText("");
 		} else if (ae.getSource() == login) {
-			
+			Conn conn = new Conn();
+			String cardnumber = cardTextField.getText();
+			String pinnumber = pinTextField.getText();
+			//query to retrieve the data
+			String query = "select * from login where cardnumber = '"+cardnumber+"' and pin = '"+pinnumber+"'";
+			try {
+				ResultSet rs = conn.s.executeQuery(query);
+				if (rs.next()) {
+					setVisible(false);
+					new Transactions(pinnumber).setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "Incorrect Card Number or Pin");
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
 		} else if (ae.getSource() == signUp) {
 			setVisible(false);
 			new SignupOne().setVisible(true);
