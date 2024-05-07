@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 
 import javax.swing.*;
 
@@ -62,8 +63,7 @@ public class PinChange extends JFrame implements ActionListener{
         back.setBounds(355, 520, 150, 30);
         back.addActionListener(this);
         image.add(back);
-		
-		
+        
 		setSize(900, 900);
 		setLocation(300, 0);
 		setUndecorated(true);
